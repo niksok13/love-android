@@ -68,6 +68,10 @@ typedef enum
                                      Called on iOS in applicationDidReceiveMemoryWarning()
                                      Called on Android in onLowMemory()
                                 */
+    SDL_APP_CUSTOMEVENT,          /**< The application is low on memory, free memory if possible.
+                                     Called on iOS in applicationDidReceiveMemoryWarning()
+                                     Called on Android in onLowMemory()
+                                */
     SDL_APP_WILLENTERBACKGROUND, /**< The application is about to enter the background
                                      Called on iOS in applicationWillResignActive()
                                      Called on Android in onPause()
@@ -552,6 +556,15 @@ typedef struct SDL_SysWMEvent
     SDL_SysWMmsg *msg;  /**< driver dependent data, defined in SDL_syswm.h */
 } SDL_SysWMEvent;
 
+
+typedef struct SDL_SerializedMessage
+{
+
+    Uint32 type;
+    char * msg_name;
+    char * msg_body;
+} SDL_SerializedMessage;
+
 /**
  *  \brief General event structure
  */
@@ -584,6 +597,7 @@ typedef union SDL_Event
     SDL_MultiGestureEvent mgesture; /**< Gesture event data */
     SDL_DollarGestureEvent dgesture; /**< Gesture event data */
     SDL_DropEvent drop;             /**< Drag and drop event data */
+    SDL_SerializedMessage message;
 
     /* This is necessary for ABI compatibility between Visual C++ and GCC
        Visual C++ will respect the push pack pragma and use 52 bytes for

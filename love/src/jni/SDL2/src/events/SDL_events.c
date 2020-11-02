@@ -18,6 +18,7 @@
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
 */
+#include <android/log.h>
 #include "../SDL_internal.h"
 
 /* General event handling code for SDL */
@@ -979,6 +980,18 @@ SDL_SendAppEvent(SDL_EventType eventType)
         event.type = eventType;
         posted = (SDL_PushEvent(&event) > 0);
     }
+    return (posted);
+}
+
+int
+SDL_CustomEvent(const char * name, const char * body)
+{
+    int posted = 0;
+    SDL_Event event;
+    event.type = SDL_APP_CUSTOMEVENT;
+    event.message.msg_name = name ? SDL_strdup(name) : NULL;
+    event.message.msg_body = body ? SDL_strdup(body) : NULL;
+    posted = (SDL_PushEvent(&event) > 0);
     return (posted);
 }
 

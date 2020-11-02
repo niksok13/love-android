@@ -1,4 +1,30 @@
-Android Port of LÖVE, an awesome 2D game engine for Lua (http://love2d.org)  
+Modified to support interaction between Lua and Java code. You can use it as base to support any native plugins
+
+Sample code:
+```
+-- Handle events invoked from GameActivity with customEvent(name, body);
+-- Allows to interact asynchronously
+function love.handlers.native(name, body)
+    if name == "show_message" then
+        love.window.showMessageBox("Message", body)
+    end
+    if name == "rewarded_ads_response" and body == "ok" then
+        coins = coins + 10
+    end
+end
+
+-- Invokes GameActivity.callNative(name, body)
+local str_response = love.system.callNative("test", "Hello world!")
+
+love.system.callNative("show_ads", "rewarded")
+
+```
+
+
+
+
+
+Android Port of LÖVE, an awesome 2D game engine for Lua (http://love2d.org)
 Copyright (c) 2006-2020 LOVE Development Team
 
 ![](https://github.com/love2d/love-android/workflows/build/badge.svg)

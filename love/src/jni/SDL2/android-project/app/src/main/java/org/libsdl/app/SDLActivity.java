@@ -799,6 +799,7 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
     public static native void nativePause();
     public static native void nativeResume();
     public static native void nativeFocusChanged(boolean hasFocus);
+    public static native void customEvent(String n, String b);
     public static native void onNativeDropFile(String filename);
     public static native void nativeSetScreenResolution(int surfaceWidth, int surfaceHeight, int deviceWidth, int deviceHeight, int format, float rate);
     public static native void onNativeResize();

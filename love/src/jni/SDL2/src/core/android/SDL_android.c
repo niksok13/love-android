@@ -140,6 +140,9 @@ JNIEXPORT void JNICALL SDL_JAVA_INTERFACE(nativeResume)(
 JNIEXPORT void JNICALL SDL_JAVA_INTERFACE(nativeFocusChanged)(
         JNIEnv *env, jclass cls, jboolean hasFocus);
 
+JNIEXPORT void JNICALL SDL_JAVA_INTERFACE(customEvent)(
+        JNIEnv *env, jclass jcls, jstring n, jstring b);
+
 JNIEXPORT jstring JNICALL SDL_JAVA_INTERFACE(nativeGetHint)(
         JNIEnv *env, jclass cls,
         jstring name);
@@ -786,6 +789,17 @@ JNIEXPORT int JNICALL SDL_JAVA_INTERFACE(nativeRunMain)(JNIEnv *env, jclass cls,
     /* exit(status); */
 
     return status;
+}
+
+
+JNIEXPORT void JNICALL SDL_JAVA_INTERFACE(customEvent)(
+        JNIEnv *env, jclass jcls, jstring n, jstring b)
+{
+    const char *name = (*env)->GetStringUTFChars(env, n, NULL);
+    const char *body = (*env)->GetStringUTFChars(env, b, NULL);
+    SDL_CustomEvent(name,body);
+    (*env)->ReleaseStringUTFChars(env, n, name);
+    (*env)->ReleaseStringUTFChars(env, b, body);
 }
 
 /* Drop file */

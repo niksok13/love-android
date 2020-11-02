@@ -427,6 +427,20 @@ public class GameActivity extends SDLActivity {
         dialog.show();
     }
 
+
+    @Keep
+    public static String callNative(String name, String body) {
+        GameActivity self = (GameActivity) mSingleton; // use SDL provided one
+        Log.d("GameActivity", "called callNative(), game path = " + gamePath+ ", name = "+name + ", body = "+body);
+
+        switch (name){
+            case "test":
+                customEvent("test_respond",body);
+                return "";
+        }
+        return "";
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (grantResults.length > 0) {
